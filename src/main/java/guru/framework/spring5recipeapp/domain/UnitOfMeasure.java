@@ -11,9 +11,6 @@ public class UnitOfMeasure {
 
     private String uom;
 
-    @OneToOne
-    private Ingredient ingredient;
-
     public Long getId() {
         return id;
     }

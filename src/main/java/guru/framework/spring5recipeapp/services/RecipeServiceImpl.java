@@ -2,12 +2,14 @@ package guru.framework.spring5recipeapp.services;
 
 import guru.framework.spring5recipeapp.domain.Recipe;
 import guru.framework.spring5recipeapp.repositories.RecipeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService{
 
@@ -26,6 +28,8 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Override
     public Recipe findById(Long id) {
+        log.debug("I'm in the service");
+
         Optional<Recipe> recipeOptional= recipeRepository.findById(id);
 
         if (!recipeOptional.isPresent()) {

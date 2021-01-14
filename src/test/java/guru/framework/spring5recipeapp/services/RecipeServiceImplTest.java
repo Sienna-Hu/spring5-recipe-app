@@ -1,5 +1,7 @@
 package guru.framework.spring5recipeapp.services;
 
+import guru.framework.spring5recipeapp.commands.RecipeToRecipeCommand;
+import guru.framework.spring5recipeapp.converters.RecipeCommandToRecipe;
 import guru.framework.spring5recipeapp.domain.Recipe;
 import guru.framework.spring5recipeapp.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,24 +23,17 @@ class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
-    }
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
 
-    @Test
-    void getRecipes() {
-        Recipe recipe= new Recipe();
-        HashSet recipesData = new HashSet();
-        recipesData.add(recipe);
-
-        when(recipeRepository.findAll()).thenReturn(recipesData);
-
-        Set<Recipe> recipes = recipeService.getRecipes();
-
-        assertEquals(recipes.size(), 1);
-        verify(recipeRepository, times(1)).findAll();
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
@@ -55,4 +50,21 @@ class RecipeServiceImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
+
+    @Test
+    public void getRecipesTest() throws Exception {
+
+        Recipe recipe = new Recipe();
+        HashSet recipesData = new HashSet();
+        recipesData.add(recipe);
+
+        when(recipeService.getRecipes()).thenReturn(recipesData);
+
+        Set<Recipe> recipes = recipeService.getRecipes();
+
+        assertEquals(recipes.size(), 1);
+        verify(recipeRepository, times(1)).findAll();
+        verify(recipeRepository, never()).findById(anyLong());
+    }
+
 }

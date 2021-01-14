@@ -1,5 +1,6 @@
-package guru.framework.spring5recipeapp.commands;
+package guru.framework.spring5recipeapp.converters;
 
+import guru.framework.spring5recipeapp.commands.IngredientCommand;
 import guru.framework.spring5recipeapp.domain.Ingredient;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;

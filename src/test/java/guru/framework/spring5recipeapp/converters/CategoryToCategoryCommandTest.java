@@ -1,7 +1,6 @@
 package guru.framework.spring5recipeapp.converters;
 
 import guru.framework.spring5recipeapp.commands.CategoryCommand;
-import guru.framework.spring5recipeapp.commands.CategoryToCategoryCommand;
 import guru.framework.spring5recipeapp.domain.Category;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class IngredientController {
 
-    private final RecipeService recipeService;
     private final IngredientService ingredientService;
+    private final RecipeService recipeService;
     private final UnitOfMeasureService unitOfMeasureService;
 
-    public IngredientController(RecipeService recipeService, IngredientService ingredientService, UnitOfMeasureService unitOfMeasureService) {
-        this.recipeService = recipeService;
+    public IngredientController(IngredientService ingredientService, RecipeService recipeService, UnitOfMeasureService unitOfMeasureService) {
         this.ingredientService = ingredientService;
+        this.recipeService = recipeService;
         this.unitOfMeasureService = unitOfMeasureService;
     }
 
@@ -35,12 +35,10 @@ public class IngredientController {
     }
 
     @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient/{ingredientId}/show")
+    @RequestMapping("recipe/{recipeId}/ingredient/{id}/show")
     public String showRecipeIngredient(@PathVariable String recipeId,
-                                       @PathVariable String ingredientId, Model model) {
-        model.addAttribute("ingredient", ingredientService
-                .findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(ingredientId)));
-
+                                       @PathVariable String id, Model model){
+        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
         return "recipe/ingredient/show";
     }
 

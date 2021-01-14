@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class IngredientServiceImpl implements IngredientService{
+public class IngredientServiceImpl implements IngredientService {
 
     private final IngredientToIngredientCommand ingredientToIngredientCommand;
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
@@ -59,12 +59,6 @@ public class IngredientServiceImpl implements IngredientService{
     @Override
     @Transactional
     public IngredientCommand saveIngredientCommand(IngredientCommand command) {
-        System.out.println(command.getDescription());
-        System.out.println(command.getUnitOfMeasure());
-        System.out.println(command.getId());
-        System.out.println(command.getAmount());
-        System.out.println(command.getRecipeId());
-
         Optional<Recipe> recipeOptional = recipeRepository.findById(command.getRecipeId());
 
         if(!recipeOptional.isPresent()){
@@ -85,11 +79,9 @@ public class IngredientServiceImpl implements IngredientService{
                 Ingredient ingredientFound = ingredientOptional.get();
                 ingredientFound.setDescription(command.getDescription());
                 ingredientFound.setAmount(command.getAmount());
-//
-//                ingredientFound.setUnitOfMeasure(unitOfMeasureRepository
-//                        .findById(command.getUnitOfMeasure()
-//                                .getId())
-//                        .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
+                ingredientFound.setUnitOfMeasure(unitOfMeasureRepository
+                        .findById(command.getUnitOfMeasure().getId())
+                        .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
             } else {
                 //add new Ingredient
                 recipe.addIngredient(ingredientCommandToIngredient.convert(command));

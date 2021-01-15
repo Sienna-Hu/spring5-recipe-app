@@ -85,8 +85,8 @@ A toy recipe application following instruction of an online Spring Framework cou
                        - Add a function `public String deleteById(@PathVariable String id)` annotated by `@GetMapping("recipe/{id}/delete")`
                            - The function calls `recipeService.deleteById(Long.valueOf(id))` and redirects user to the index page.
                            
-           - Allow to view, update, create, and delete an ingredient.
-           - Allow to upload images, persisting images to database, and displaying images from database
+          - Allow to view, update, create, and delete an ingredient.
+          - Allow to upload images, persisting images to database, and displaying images from database
                          
                          
                          

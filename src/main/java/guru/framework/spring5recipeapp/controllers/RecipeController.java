@@ -1,10 +1,13 @@
 package guru.framework.spring5recipeapp.controllers;
 
 import guru.framework.spring5recipeapp.commands.RecipeCommand;
+import guru.framework.spring5recipeapp.exceptions.NotFoundException;
 import guru.framework.spring5recipeapp.services.RecipeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RecipeController {
@@ -13,6 +16,15 @@ public class RecipeController {
 
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(Exception exception){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("404error");
+        modelAndView.addObject("exception", exception);
+        return modelAndView;
     }
 
     @GetMapping({"/recipe/{id}/show"})
